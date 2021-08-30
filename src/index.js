@@ -30,9 +30,54 @@ function expressionCalculator(expr) {
     }
     if (stack.length !== 0) throw ("ExpressionError: Brackets must be paired");
   //-----------------------------------------------------------------------------
-
   
 
+  str = expr.split(' ').join('')
+  
+  //let start = str.indexOf('(');
+ // let end = str.lastIndexOf(')');
+  
+  let n = [],
+    op = [],
+    index = 0;
+  
+  n[index] = '';
+  
+  for (let i = 0; i < str.length; i++) {
+  
+    if (isNaN(parseInt(str[i])) && !opLast) {
+        op[index] = str[i];
+        index++;
+        n[index] = '';
+        opLast = true;
+    } else {
+        n[index] += str[i];
+        opLast = false;
+    }
+  }
+  
+   
+    acc = parseFloat(n[0]);
+    for (var i = 0; i < op.length; i++) {
+        var num = parseFloat(n[i + 1]);
+        switch (op[i]) {
+            case "+":
+                acc = acc + num;
+                break;
+            case "-":
+                acc = acc - num;
+                break;
+            case "*":
+                acc = acc * num;
+                break;
+            case "/":
+                acc = acc / num;
+                if (acc === Infinity) throw ("TypeError: Division by zero.");
+                break;
+          }
+      }
+
+  return acc
 }
 
 module.exports = {
